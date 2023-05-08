@@ -13,17 +13,16 @@ const { log } = require('console');
 const allUsers = new User();
 const users = allUsers.getUsers();
 
-// Gets all JSON users from ./data/users.json
-app.get('/api/users', (req, res) => {
-  res.json(users);
-});
+// route: /api/users will get all JSON users from ./data/users.json file.
+app.get('/api/users', (req, res) => res.json(users));
 
+// Route with /api/users/"id" will get that single user via the express params.
 app.get('/api/users/:id', (req, res) => {
   res.json(users.filter((user) => user._id === req.params.id));
 });
 
 // Sets the public folder as place for any routes as static HTML files.
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/views')));
 
 app.listen(port, url, () => {
   console.log(`Yay!, Your server is running on http://${url}:${port}`);
